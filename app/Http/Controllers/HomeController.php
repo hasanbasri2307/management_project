@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Auth;
 
 class HomeController extends Controller
 {
+    private $data = [];
     /**
      * Create a new controller instance.
      *
@@ -14,7 +16,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-
+        
     }
 
     /**
@@ -24,6 +26,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $roles = Auth::user()->role;
+        $view = "content.".$roles.".home";
+        $this->data['title'] = "Dashboard";
+        return view($view,$this->data);
     }
 }

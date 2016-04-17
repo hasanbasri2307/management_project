@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller
 {
+    private $data = [];
     /*
     |--------------------------------------------------------------------------
     | Registration & Login Controller
@@ -28,7 +29,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/home';
 
     /**
      * Create a new authentication controller instance.
@@ -71,6 +72,7 @@ class AuthController extends Controller
     }
 
 	public function showLoginForm (){
-		return view("layouts.login");
+        $this->data['title'] = "Login - PT. Alexander Karya Utama";
+		return view("layouts.login",$this->data);
 	}
 }

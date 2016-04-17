@@ -22,7 +22,8 @@
         ],
         "psr-4": {
             "App\\": "app/",
-            "App\\Mplib\\" : "app/Mplib/"
+            "App\\Myservice\\" : "app/Myservice/",
+            "App\\Myfacade\\" : "app/Myfacade/"
         }
     },
     "autoload-dev": {
