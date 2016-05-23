@@ -53,9 +53,7 @@ class ProjectRequest extends Request
             case 'PATCH':
                 return [
                     //
-                    'estimate_end_date' => 'required',
                     'end_date' => 'required',
-                    'start_date' => 'required',
                     'status_project' => 'required'
                 ];
 

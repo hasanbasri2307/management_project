@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Detailrab extends Model
+class Mp extends Model
 {
     //
     public $timestamp = true;
-    protected $table = "rab_detail";
+    protected $table = "master_job";
 }

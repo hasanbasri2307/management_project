@@ -17,7 +17,7 @@ class ClientController extends Controller
     	$client = client::all();
     	$this->data['client'] = $client;
     	$this->data['title'] = "Client";
-    	return view("content.admin.client.list",$this->data);
+    	return view("content.master.client.list",$this->data);
     }
 
     public function edit($id,$name){
@@ -25,7 +25,7 @@ class ClientController extends Controller
     	$name = $client->user->name;
     	$this->data['client'] = $client;
     	$this->data['title'] = "Client Edit ($client->id - $name)";
-    	return view("content.admin.client.edit",$this->data);
+    	return view("content.master.client.edit",$this->data);
     }
 
     public function update(clientRequest $request,$id){

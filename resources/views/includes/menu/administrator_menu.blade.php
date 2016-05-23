@@ -22,6 +22,21 @@
                     <li class="{{ $controller = "UserController" && $action == "create" ? 'active' : '' }}"><a href="{{ url('user/create') }}"><i class="fa fa-circle-o"></i> Create User</a></li>
                 </ul>
             </li>
+            <li @if($controller == "ClientController") class="active" @endif>
+                <a href="{{ url('client') }}">
+                    <i class="fa fa-user"></i> <span>Client</span>
+                </a>
+            </li>
+            <li class="{{ $controller == "MpController" ? 'active' : '' }} treeview">
+                <a href="#">
+                    <i class="fa fa-cube"></i>
+                    <span>Master Job</span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ $controller == "MpController" && $action == "index" ? 'active' : '' }}"><a href="{{ url('master-job') }}"><i class="fa fa-circle-o"></i>List Master Job</a></li>
+                    <li class="{{ $controller == "MpController" && $action == "create" ? 'active' : '' }}"><a href="{{ url('master-job/create') }}"><i class="fa fa-circle-o"></i> Create Master Job</a></li>
+                </ul>
+            </li>
            
             <li class="treeview">
                 <a href="#">

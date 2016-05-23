@@ -21,4 +21,8 @@ class Project extends Model
     public function user_lastupdate(){
     	return $this->belongsTo('App\User','last_update_by');
     }
+
+    public function rab(){
+        return $this->hasMany('App\Rab','project_id');
+    }
 }

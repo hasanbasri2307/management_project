@@ -36,13 +36,34 @@ Route::group(['middleware'=>['auth']],function(){
 	Route::put('client/update/{id}','ClientController@update');
 	Route::delete('client/delete/{id}','ClientController@delete');
 
+	//Master Job
+	Route::get('master-job','MpController@index');
+	Route::get('master-job/show/{id}/{nama}','MpController@show');
+	Route::get('master-job/create','MpController@create');
+	Route::post('master-job/save','MpController@save');
+	Route::get('master-job/edit/{id}/{nama}','MpController@edit');
+	Route::put('master-job/update/{id}','MpController@update');
+	Route::delete('master-job/delete/{id}','MpController@delete');
+
 	//project
 	Route::get('project','ProjectController@index');
 	Route::get('project/create','ProjectController@create');
-	Route::post('project/save','ProjectController@save');
-	Route::get('project/show/{id}/{nama}','ProjectController@show');
+	Route::post('project/save','ProjectController@save');;
 	Route::get('project/edit/{id}/{nama}','ProjectController@edit');
 	Route::put('project/update/{id}','ProjectController@update');
+	Route::patch('project/patch/{id}','ProjectController@patch');
 	Route::delete('project/delete/{id}','ProjectController@delete');
 	Route::get('project/get-detail-user/{id}','ProjectController@get_detail_user');
+	Route::get('project/detail/{id}','ProjectController@get_detail_project');
+	Route::get('project/get-detail-project/{id}','ProjectController@get_project_by_id');
+
+	//rab
+	Route::get('rab','RabController@index');
+	Route::get('rab/create','RabController@create');
+	Route::post('rab/save','RabController@save');;
+	Route::get('rab/edit/{id}','RabController@edit');
+	Route::put('rab/update/{id}','RabController@update');
+	Route::delete('rab/delete/{id}','RabController@delete');
+	Route::get('rab/get-detail-user/{id}','RabController@get_detail_user');
+	Route::get('rab/detail/{id}','RabController@get_detail_project');
 });

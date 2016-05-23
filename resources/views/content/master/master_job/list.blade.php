@@ -22,35 +22,21 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th>No Project</th>
-                    <th>Project Name</th>
-                    <th>Location</th>
-                    <th>Client</th>
-                    <th>PM</th>
-                    <th>Status</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Created At</th>
+                    <th>Last Updated</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  	@foreach($project as $item)
+                  	@foreach($mp as $item)
 	                  <tr>
-                      <td>{{ $item->no_project }}</td>
-	                    <td>{{ $item->p_name }}</td>
-	                    <td>{{ $item->p_address }}</td>
-	                    <td>{{ $item->client->name }}</td>
-                      <td>{{ $item->pm->name }}</td>
-                      <td>
-                        @if($item->status_project == "0")
-                          <span class="label label-default">Preparation</span>
-                        @elseif($item->status_project == "1")
-                          <span class="label label-primary">On Progress</span>
-                        @elseif($item->status_project == "2")
-                          <span class="label label-success">Finish</span>
-                        @elseif($item->status_project == "3")
-                          <span class="label label-warning">Pending</span>
-                        @endif
-                      </td>
-	                    <td width="15%">
+	                    <td>{{ $item->mp_name }}</td>
+	                    <td>{{ $item->description }}</td>
+	                    <td>{{ date("d F Y H:i:s",strtotime($item->created_at)) }}</td>
+	                    <td>{{ date("d F Y H:i:s",strtotime($item->updated_at)) }}</td>
+	                    <td>
 	                    	<div class="btn-group">
 		                      <button type="button" class="btn btn-default">Action</button>
 		                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -58,7 +44,8 @@
 		                        <span class="sr-only">Toggle Dropdown</span>
 		                      </button>
 		                      <ul class="dropdown-menu" role="menu">
-		                        <li><a href="{{ url('project/edit/'.$item->id.'/'.strtolower(str_replace(" ","-", $item->p_name))) }}"><i class="fa fa-fw fa-edit"></i>Edit</a></li>
+		                        <li><a href="{{ url('master-job/edit/'.$item->id.'/'.strtolower(str_replace(" ","-", $item->mp_name))) }}"><i class="fa fa-fw fa-edit"></i>Edit</a></li>
+		                        <li><a href="{{ url('master-job/delete/'.$item->id) }}" data-method="delete" data-confirm="Delete this data ?" data-token="{{ csrf_token() }}"><i class="fa fa-fw fa-trash"></i>Delete</a></li>
 		                      </ul>
 		                    </div>
 	                    </td>
@@ -80,7 +67,9 @@
 @section("js_script")
 	<script type="text/javascript">
 		$(function () {
-	        $("#example1").DataTable();
+	        $("#example1").DataTable({
+        "order": [[ 1, "asc" ]]
+    });
       });
 	</script>
 @endsection

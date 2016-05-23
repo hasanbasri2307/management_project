@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function index()
     {
         $roles = Auth::user()->role;
-        $view = "content.".$roles.".home";
+        $view = "content.".$roles."_home";
         $this->data['title'] = "Dashboard";
         return view($view,$this->data);
     }

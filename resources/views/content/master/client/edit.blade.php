@@ -40,7 +40,7 @@
                   <label>Office Address</label>
                   {{ Form::textarea('address',old('address'),['class'=>'form-control','placeholder'=>'Address']) }}
                   
-                  @if($errors->has('company_name'))
+                  @if($errors->has('address'))
                     <span class="help-block">
                         <strong>{{ $errors->first('address') }}</strong>
                     </span>
