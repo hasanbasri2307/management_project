@@ -157,6 +157,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\NomorProvider::class,
 		Collective\Html\HtmlServiceProvider::class,
+        Collective\Bus\BusServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+
 
     ],
 
@@ -206,6 +209,7 @@ return [
 		'Form' => Collective\Html\FormFacade::class,
 		'Html' => Collective\Html\HtmlFacade::class,
         'Nomor' => App\Myfacade\Nomor::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 

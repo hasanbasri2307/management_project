@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{{ asset('assets/plugins/iCheck/all.css') }}">
 @endsection
 @section("content")
-{!! Form::open(['url'=>'rab/save','method'=>'post','id'=>'rabform','files'=>true]) !!}
+{!! Form::open(['url'=>'rab/update/'.$rab->id,'method'=>'put','id'=>'rabform','files'=>true]) !!}
 <div class="row">
 	<!-- left column -->
 	<div class="col-md-12">
@@ -19,42 +19,39 @@
 			<div class="box-body">
 				<div class="form-group{{ $errors->has('file_attach') ? ' has-error' : '' }}">
 				  <label for="exampleInputFile">Copy of Rab</label>
-				  {!! Form::file('file_attach'); !!}
-				  
-					@if($errors->has('file_attach'))
-					<span class="help-block">
-						<strong>{{ $errors->first('file_attach') }}</strong>
-					</span>
-					@endif 
-				</div>
-				<div class="form-group{{ $errors->has('project_id') ? ' has-error' : '' }}">
-					<label>Company</label>
-					{!! Form::select('project_id',$project,null,['class'=>'form-control select2','id'=>'project_id','placeholder'=>'Choose']) !!}
-					@if($errors->has('project_id'))
-					<span class="help-block">
-						<strong>{{ $errors->first('project_id') }}</strong>
-					</span>
-					@endif 
+				  @if(empty($rab->file_attach))
+				 		{!! Form::file('file_attach'); !!}
+
+	  					@if($errors->has('file_attach'))
+	  					<span class="help-block">
+	  						<strong>{{ $errors->first('file_attach') }}</strong>
+	  					</span>
+	  					@endif
+				  @else
+					<br/>
+					<a href="{{ asset('uploads/'.$rab->file_attach) }}">{{ $rab->file_attach }}</a> &nbsp &nbsp<a style="cursor:pointer" id='ganti_attach'>Change file</a>
+				  @endif
+
 				</div>
 				<div class="form-group">
 					<label>Project Name</label>
 
-					<input type="text" id="project_name" class="form-control"  placeholder="Project Name ..." disabled>
+					<input type="text" id="project_name" class="form-control" value="{{ $rab->project->p_name }}"  placeholder="Project Name ..." disabled>
 				</div>
 				<div class="form-group">
 					<label>Client</label>
-					<input type="text" id="client" class="form-control"  placeholder="Client ..." disabled>
+					<input type="text" id="client" class="form-control" value="{{ $rab->project->client->client->company_name }}"  placeholder="Client ..." disabled>
 				</div>
 				<div class="form-group">
 					<label>Address</label>
-					<textarea class="form-control" id="address" rows="3" placeholder="Address ..." disabled></textarea>
+					<textarea class="form-control" id="address" rows="3" placeholder="Address ..." disabled>{{ $rab->project->client->client->address }}</textarea>
 				</div>
 
-				
+
 			</div><!-- /.box-body -->
 		</div><!-- /.box -->
 
-		
+
 
 	</div><!--/.col (left) -->
 	<!-- right column -->
@@ -70,35 +67,42 @@
 					<thead>
 						<tr>
 						  <th>#</th>
+							<th>Master Job</th>
 						  <th>Job Item</th>
 						  <th>Unit</th>
 						  <th>Vol</th>
 						  <th>Price / Unit</th>
-						  <th>Total</th>
-						  <th><button type="button" class="btn btn-sm btn-default" id="add_master_job">Add Master Job</button></th>
+						  <th><button type="button" class="btn btn-sm btn-default" id="add_edit_job">Add Item</button></th>
 						</tr>
 
 				  	</thead>
 				  	<tbody id="job_table">
-						<tr>
-							<td>-</td>
-							<td colspan="5" width="80%"><input type="text" name="master_job[]" onchange="master_jobs(this)" class="form-control parent-job" required /> </td>
-							<td><button type='button' class='btn btn-sm btn-danger' onclick='hapus(this)'>Remove</button> <button type='button' class='btn btn-sm btn-success add_sub_job' onclick='add(this)' >Add Sub Job</button></td>
-						</tr>
+						<?php
+						$temp = "";
+						$counter = 0;
+						?>
+						@foreach($detail_rab as $key => $value)
+                            <input type="hidden" name="detail_rab_id[]" value="{{ $value->id }}">
+							<tr><td>-</td><td><input type='text' name='master_job_name[]' class='form-control' value="{{ $value['master_job'] }}" required></td><td><input type='text' name='sub_job_name[]' class='form-control' value="{{ $value['sub_job_name'] }}" required></td><td><input type='text' name='unit[]' class='form-control' value="{{ $value['unit'] }}" required></td><td><input type='text' name='volume[]' value='{{ $value['volume'] }}' class='form-control volume number' oninput='volume(this)' required></td><td width='20%'><input type='text' name='unit_price[]' value='{{ $value['unit_price'] }}' class='form-control unit_price number' oninput='unit_price(this)' required></td><td><button type='button' class='btn btn-sm btn-danger' onclick='hapus(this)'>Remove</button></td></tr><input type='hidden' name='master_jobs[]'>
+
+
+
+						@endforeach
+						
 				  	</tbody>
 					<tfoot>
 						<tr>
 							<td>-</td>
-							<td colspan="5"><input type="text" value="0" name="estimate_total_budget" class="form-control number" id="estimate_budget" readonly="true"> </td>
+							<td colspan="5"><input type="hidden" value="{{ $rab->estimate_total_budget }}" name="estimate_total_budget" class="form-control number" readonly="true"> </td>
 							<td></td>
 						</tr>
 					</tfoot>
 				</table>
-				
+
 			</div><!-- /.box-body -->
 		</div><!-- /.box -->
 
-		
+
 	</div><!--/.col (right) -->
 </div>   <!-- /.row -->
 <div class="row">
@@ -149,9 +153,9 @@
 
 
 
-	$("#add_master_job").on("click",function(){
+	$("#add_edit_job").on("click",function(){
 
-		var _element = "<tr><td>-</td><td colspan='5' width='80%'><input type='text' name='master_job[]' class='form-control parent-job' placeholder='Title Job (example : Pekerjaan Persiapan)' onchange='master_jobs(this)'  required></td><td><button type='button' class='btn btn-sm btn-danger' onclick='hapus(this)'>Remove</button> <button type='button' class='btn btn-sm btn-success add_sub_job' onclick='add(this)' >Add Sub Job</button></td></tr>";
+		var _element = "<tr><td>-</td><td><input type='text' name='master_job_name[]' class='form-control' required></td><td><input type='text' name='sub_job_name[]' class='form-control' required></td><td><input type='text' name='unit[]' class='form-control' required></td><td><input type='text' name='volume[]' value='0' class='form-control volume number' oninput='volume(this)' required></td><td width='20%'><input type='text' name='unit_price[]' value='0' class='form-control unit_price number' oninput='unit_price(this)' required></td><td><button type='button' class='btn btn-sm btn-danger' onclick='hapus(this)'>Remove</button></td></tr><input type='hidden' name='master_jobs[]' ><input type='hidden' name='detail_rab_id[]' value='0'> ";
 		$(_element).appendTo('#job_table');
 	});
 
@@ -169,7 +173,7 @@
 
 		var master_j = $(elem).attr('id');
 
-		var _element = "<tr><td>-</td><td><input type='text' name='sub_job_name[]' class='form-control' required></td><td><input type='text' name='unit[]' class='form-control' required></td><td><input type='text' name='volume[]' value='0' class='form-control volume number' oninput='volume(this)' required></td><td width='20%'><input type='text' name='unit_price[]' value='0' class='form-control unit_price number' oninput='unit_price(this)' required></td><td><input type='text' name='sub_total[]' value='0' class='form-control subtotal number'  readonly></td><td><button type='button' class='btn btn-sm btn-danger' onclick='hapus(this)'>Remove</button></td></tr><input type='hidden' name='master_jobs[]' value='"+master_j+"'> ";
+		var _element = "<tr><td>-</td><td><input type='text' name='sub_job_name[]' class='form-control' required></td><td><input type='text' name='unit[]' class='form-control' required></td><td><input type='text' name='volume[]' value='0' class='form-control volume number' oninput='volume(this)' required></td><td width='20%'><input type='text' name='unit_price[]' value='0' class='form-control unit_price number' oninput='unit_price(this)' required></td><td><button type='button' class='btn btn-sm btn-danger' onclick='hapus(this)'>Remove</button></td></tr><input type='hidden' name='master_jobs[]' value='"+master_j+"'> ";
 
 		$(_element).appendTo($(elem).parent().parent().parent());
 		$('.number').number(true);
@@ -219,6 +223,6 @@
 		});
 		$('#estimate_budget').val(sum);
 	}
-	
+
 </script>
 @endsection

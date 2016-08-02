@@ -30,7 +30,6 @@ class ProjectRequest extends Request
                     'p_name' => 'required',
                     'p_address' => 'required',
                     'client_id' => 'required',
-                    'start_date' => 'required',
                     'pm_id' => 'required',
                     'status_project' => 'required'
                 ];

@@ -62,8 +62,24 @@ Route::group(['middleware'=>['auth']],function(){
 	Route::get('rab/create','RabController@create');
 	Route::post('rab/save','RabController@save');;
 	Route::get('rab/edit/{id}','RabController@edit');
+    Route::get('rab/timeline_rab/{id}','RabController@timeline');
+    Route::get('rab/progress_rab/{id}','RabController@progress');
+    Route::get('rab/progress/week/{week}/{id}','RabController@detail_progress');
+    Route::get('rab/edit/{id}','RabController@edit');
 	Route::put('rab/update/{id}','RabController@update');
+    Route::put('rab/update_timeline/{id}','RabController@update_timeline');
+    Route::post('rab/insert_progress','RabController@insert_progress');
+    Route::put('rab/update_progress/{id}','RabController@update_progress');
+    Route::put('rab/update_progress_week/{id}','RabController@update_progress_week');
 	Route::delete('rab/delete/{id}','RabController@delete');
 	Route::get('rab/get-detail-user/{id}','RabController@get_detail_user');
 	Route::get('rab/detail/{id}','RabController@get_detail_project');
+
+
+    //client
+    Route::get('project/client/{id}','ProjectController@client');
+    Route::get('project/rab/{id}','ProjectController@rab_client');
+    Route::get('project/rab/{id}/download','ProjectController@rab_client_download');
+    Route::get('project/progress/{id}','ProjectController@progress_client');
+    Route::get('project/progress/{id}/download','ProjectController@progress_client_download');
 });

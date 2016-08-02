@@ -29,7 +29,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li class="{{ $controller == "RabController" && $action == "index" ? 'active' : '' }}"><a href="{{ url('rab') }}"><i class="fa fa-circle-o"></i>RAB</a></li>
-                    <li class="{{ $controller == "RabController" && $action == "create" ? 'active' : '' }}"><a href="{{ url('rab/create') }}"><i class="fa fa-circle-o"></i>Create RAB</a></li>
+
                 </ul>
             </li>
         </ul>

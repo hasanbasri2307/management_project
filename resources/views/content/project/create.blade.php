@@ -36,33 +36,7 @@
 					@endif 
 					
 				</div>
-				<div class="form-group{{ $errors->has('start_date') ? ' has-error' : '' }}">
-					<label>Start Date</label>
-					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-						{!! Form::text('start_date',old('start_date'),['class'=>'form-control datepicker','placeholder'=>'Start Date']) !!}
-						
-					</div>
-					@if($errors->has('start_date'))
-					<span class="help-block">
-						<strong>{{ $errors->first('start_date') }}</strong>
-					</span>
-					@endif 
-				</div>
-				
-				<div class="form-group{{ $errors->has('estimate_end_date') ? ' has-error' : '' }}">
-					<label>Estimation End Date</label>
-					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-						{!! Form::text('estimate_end_date',old('estimate_end_date'),['class'=>'form-control datepicker','placeholder'=>'Estimate End Date']) !!}
-						
-					</div>
-					@if($errors->has('estimate_end_date'))
-					<span class="help-block">
-						<strong>{{ $errors->first('estimate_end_date') }}</strong>
-					</span>
-					@endif 
-				</div>
+
 				<div class="form-group{{ $errors->has('status_project') ? ' has-error' : '' }}">
 					<label>Status Project</label>
 					<br />

@@ -196,7 +196,7 @@
 						<label>Start Date</label>
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-							{!! Form::text('start_date',old('start_date'),['class'=>'form-control datepicker','placeholder'=>'Start Date','disabled' => true]) !!}
+							{!! Form::text('start_date',old('start_date'),['class'=>'form-control datepicker','placeholder'=>'Start Date']) !!}
 							
 						</div>
 						@if($errors->has('start_date'))
@@ -210,7 +210,7 @@
 						<label>Estimation End Date</label>
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-							{!! Form::text('estimate_end_date',old('estimate_end_date'),['class'=>'form-control datepicker','placeholder'=>'Estimate End Date','disabled' => true]) !!}
+							{!! Form::text('estimate_end_date',old('estimate_end_date'),['class'=>'form-control datepicker','placeholder'=>'Estimate End Date']) !!}
 							
 						</div>
 						@if($errors->has('estimate_end_date'))

@@ -46,4 +46,8 @@ class ClientController extends Controller
     	Session::flash('success','Client has been deleted');
     	return redirect('client');
     }
+
+	public function tes(){
+		
+	}
 }

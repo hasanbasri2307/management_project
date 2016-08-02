@@ -9,7 +9,7 @@ class Project extends Model
     //
     public $timestamp = true;
     protected $table = "project";
-
+	
     public function client(){
     	return $this->belongsTo('App\User','client_id');
     }

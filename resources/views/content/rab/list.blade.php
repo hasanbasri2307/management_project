@@ -54,17 +54,24 @@
 								@endif
 							</td>
 							<td width="15%">
-								<div class="btn-group">
-									<button type="button" class="btn btn-default">Action</button>
-									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-										<span class="caret"></span>
-										<span class="sr-only">Toggle Dropdown</span>
-									</button>
-									<ul class="dropdown-menu" role="menu">
-										<li><a href="{{ url('rab/edit/'.$item->id.'/'.strtolower(str_replace(" ","-", $item->p_name))) }}"><i class="fa fa-fw fa-edit"></i>Edit</a></li>
-										<li><a id="detail_rab" data-id="{{ $item->id }}" style="cursor:pointer;"><i class="fa fa-fw fa-search"></i>Show</a></li>
-									</ul>
-								</div>
+								@if(Auth::user()->role=="pm")
+									<div class="btn-group">
+										<button type="button" class="btn btn-default">Action</button>
+										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+											<span class="caret"></span>
+											<span class="sr-only">Toggle Dropdown</span>
+										</button>
+										<ul class="dropdown-menu" role="menu">
+											<li><a href="{{ url('rab/edit/'.$item->id.'/'.strtolower(str_replace(" ","-", $item->p_name))) }}"><i class="fa fa-fw fa-edit"></i>Edit</a></li>
+											<li><a href="{{ url('rab/timeline_rab/'.$item->id.'/'.strtolower(str_replace(" ","-", $item->p_name))) }}"><i class="fa fa-fw fa-edit"></i>Timeline RAB</a></li>
+											<li><a href="{{ url('rab/progress_rab/'.$item->id.'/'.strtolower(str_replace(" ","-", $item->p_name))) }}"><i class="fa fa-fw fa-edit"></i>Progress RAB</a></li>
+										</ul>
+									</div>
+								@else
+									<a href="{{ url('project/rab/'.$item->project->id.'/download') }}"><button type="button" class="btn btn-default">Download Timeline</button></a> &nbsp &nbsp <a href="{{ url('project/progress/'.$item->project->id.'/download') }}"><button type="button" class="btn btn-default">Download Progress</button></a>
+
+
+								@endif
 							</td>
 						</tr>
 						@endforeach
@@ -112,7 +119,7 @@
 			$("#detailProjectModal").modal("toggle");
 		});
 
-		
+
 
 	});
 </script>
